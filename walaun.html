@@ -52,30 +52,30 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Side Glowing Lights */
-        .side-lights {
-            position: absolute;
-            width: 20px;
-            height: 100vh;
-            background: linear-gradient(to bottom, #ffd700, transparent);
-            filter: blur(8px);
-            opacity: 0.8;
-            animation: lightPulse 2s infinite alternate;
+        /* Bottom Right Play/Pause Button */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
         }
 
-        .left-lights {
-            left: 0;
-            top: 0;
+        .audio-control:hover {
+            background-color: rgba(255, 215, 0, 0.9);
         }
 
-        .right-lights {
-            right: 0;
-            top: 0;
-        }
-
-        @keyframes lightPulse {
-            0% { opacity: 0.6; }
-            100% { opacity: 1; }
+        .audio-control img {
+            width: 30px;
+            height: 30px;
         }
 
         .highlight {
@@ -83,42 +83,62 @@
             color: #ffd700;
         }
 
-
     </style>
 </head>
 <body>
-    <!-- Background Lights -->
-    <div class="side-lights left-lights"></div>
-    <div class="side-lights right-lights"></div>
 
-     <!-- Main Content -->
+    <!-- Main Content -->
     <div class="container">
         <h1>Eid Mubarak</h1>
         <h2>EID AL-FITR CELEBRATION</h2>
         <p><span class="highlight">Date:</span> 18 April 2025</p>
         <p><span class="highlight">Time:</span> 10:00 AM</p>
         <p><span class="highlight">Venue:</span> Jabatan Siyasah Syariah, Universiti Malaya</p>
-    
     </div>
 
     <!-- Audio Element (Autoplay Enabled) -->
-    <audio id="eidAudio" autoplay loop>
+    <audio id="eidAudio" autoplay loop preload="auto" muted>
         <source src="EUPHORIC FIELD.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
+    <!-- Play/Pause Button (Bottom Right) -->
+    <div class="audio-control" id="audioButton">
+        <img id="playPauseIcon" src="https://img.icons8.com/ios-filled/50/ffffff/play.png" alt="Play">
+    </div>
 
-    <!-- JavaScript for Play/Pause -->
+    <!-- JavaScript for Autoplay & Play/Pause -->
     <script>
         let audio = document.getElementById("eidAudio");
-        let playIcon = document.getElementById("playIcon");
+        let playPauseIcon = document.getElementById("playPauseIcon");
+        let audioButton = document.getElementById("audioButton");
 
-        // Ensure autoplay works after interaction
-        document.addEventListener("click", function() {
-            audio.play();
-        }, { once: true });
+        function enableAudio() {
+            audio.muted = false; // Unmute after playback starts
+            audio.play().catch(err => {
+                console.log("Autoplay blocked, retrying...", err);
+                setTimeout(enableAudio, 1000); // Retry if blocked
+            });
+        }
+
+        // Attempt autoplay immediately
+        enableAudio();
+
+        // Backup: Enable audio on user interaction
+        document.addEventListener("click", enableAudio);
+        document.addEventListener("touchstart", enableAudio);
+
+        // Play/Pause button functionality
+        audioButton.addEventListener("click", function () {
+            if (audio.paused) {
+                audio.play();
+                playPauseIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/pause.png"; // Change to pause icon
+            } else {
+                audio.pause();
+                playPauseIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/play.png"; // Change to play icon
+            }
+        });
     </script>
 
 </body>
 </html>
-
