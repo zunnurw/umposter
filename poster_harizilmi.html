@@ -170,7 +170,6 @@
         
         .container {
             max-width: 600px;
-            margin: 50px auto 0 auto; /* Add top margin */
             font-family: Arial, sans-serif;
             text-align: center;
             opacity: 0;
@@ -264,33 +263,52 @@
         setInterval(createStar, 300);
     </script>
 
-    <!-- Audio Element (Autoplay Enabled) -->
-    <audio id="eidAudio" autoplay loop preload="auto">
-        <source src="Marhaban ya Ramadan.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+<!-- Silent Autoplay Trigger -->
+<iframe src="silence.mp3" allow="autoplay" id="audio" style="display: none"></iframe>
 
-    <!-- Play/Pause Button -->
-    <div class="audio-control" id="audioButton">
-        <img id="playPauseIcon" src="https://img.icons8.com/ios-filled/50/ffffff/play.png" alt="Play">
-    </div>
+<!-- Audio Element (Autoplay Enabled) -->
+<audio id="eidAudio" autoplay loop preload="auto">
+    <source src="Marhaban ya Ramadan.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
-    <!-- JavaScript for Audio -->
-    <script>
-        let audio = document.getElementById("eidAudio");
-        let playPauseIcon = document.getElementById("playPauseIcon");
-        let audioButton = document.getElementById("audioButton");
+<!-- Play/Pause Button -->
+<div class="audio-control" id="audioButton">
+    <img id="playPauseIcon" src="https://img.icons8.com/ios-filled/50/ffffff/play.png" alt="Play">
+</div>
 
-        audioButton.addEventListener("click", function () {
-            if (audio.paused) {
-                audio.play();
-                playPauseIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/pause.png";
-            } else {
-                audio.pause();
-                playPauseIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/play.png";
-            }
+<!-- JavaScript for Audio -->
+<script>
+    let audio = document.getElementById("eidAudio");
+    let playPauseIcon = document.getElementById("playPauseIcon");
+    let audioButton = document.getElementById("audioButton");
+
+    // Ensure silent audio trigger is loaded first
+    window.addEventListener("DOMContentLoaded", function () {
+        let silentAudio = document.createElement("audio");
+        silentAudio.src = "silence.mp3";
+        silentAudio.autoplay = true;
+        silentAudio.loop = false;
+        silentAudio.volume = 0; // Mute it
+        document.body.appendChild(silentAudio);
+
+        silentAudio.addEventListener("play", function () {
+            // Once silent audio plays, play the actual audio
+            audio.play();
         });
-    </script>
+    });
+
+    audioButton.addEventListener("click", function () {
+        if (audio.paused) {
+            audio.play();
+            playPauseIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/pause.png";
+        } else {
+            audio.pause();
+            playPauseIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/play.png";
+        }
+    });
+</script>
+
 
 </body>
 </html>
