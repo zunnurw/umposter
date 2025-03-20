@@ -45,11 +45,6 @@
             50% { transform: translateY(-10px); }
         }
 
-        .container {
-            opacity: 0;
-            animation: fadeIn 5s ease-out forwards, fadeOut 3s ease-in forwards 5s, fadeIn 2s ease-out forwards 9s;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -64,7 +59,7 @@
         .ramadan-light {
             position: absolute;
             top: 5%;
-            left: 50%;
+            left: 51.7%;
             transform: translateX(-50%);
             width: 150px;
             opacity: 0;
@@ -113,22 +108,30 @@
             100% { top: 85%; right: 50%; transform: translateX(50%) scale(1); }
         }
 
-        /* Falling Stars */
+        /* Style for falling stars */
         .star {
             position: absolute;
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             background: white;
             border-radius: 50%;
-            box-shadow: 0 0 5px white;
+            box-shadow: 0 0 10px white;
             opacity: 0.8;
-            animation: fall linear infinite;
+            animation: fall linear infinite, shine 2s infinite alternate;
         }
 
+        /* Falling Animation */
         @keyframes fall {
-            from { transform: translateY(-100vh); opacity: 0.8; }
-            to { transform: translateY(100vh); opacity: 0; }
+            from {
+                transform: translateY(-10vh);
+                opacity: 0.6;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
         }
+
 
         /* Audio Control Button */
         .audio-control {
@@ -156,9 +159,61 @@
             height: 30px;
         }
 
+        .event-details {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Align items vertically */
+            gap: 15px; /* Space between label and text */
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 50px auto 0 auto; /* Add top margin */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 5s ease-out forwards, fadeOut 3s ease-in forwards 5s, fadeIn 2s ease-out forwards 9s;
+        }
+        
+        
+        .event-container {
+            display: grid;
+            grid-template-columns: auto 1fr; /* Left column auto-sized, right column takes remaining space */
+            justify-content: left; /* Moves everything to the left */
+            align-items: start;
+            gap: 8px;
+            margin: 10px auto;
+            max-width: 400px;
+            text-align: left;
+        }
+        
         .highlight {
             font-weight: bold;
             color: #ffd700;
+            text-align: right;
+            white-space: nowrap;
+            min-width: 100px; /* Slightly reduced width to shift left */
+            justify-self: end; /* Aligns labels to the end of their column */
+        }
+        
+        .event-text {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-self: start; /* Moves event text further left */
+        }
+        
+        
+
+        @media screen and (max-width: 768px) {
+            .crescent-moon {
+                top: 5%; /* Move it higher */
+                right: 5%; /* Adjust to keep it visible */
+                width: 80px; /* Reduce size */
+                height: 80px;
+            }
         }
 
     </style>
@@ -171,14 +226,26 @@
     <!-- Crescent Moon -->
     <div class="crescent-moon"></div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <h1>Eid Mubarak</h1>
-        <h2>EID AL-FITR CELEBRATION</h2>
-        <p><span class="highlight">Date:</span> 18 April 2025</p>
-        <p><span class="highlight">Time:</span> 10:00 AM</p>
-        <p><span class="highlight">Venue:</span> Jabatan Siyasah Syariah, <br>Universiti Malaya</p>
+<!-- Main Content -->
+<div class="container">
+    <h1>Eid Mubarak</h1>
+    <h2>EID AL-FITR CELEBRATION</h2>
+
+    <div class="event-container">
+        <span class="highlight">Date:</span>
+        <span class="event-text">18 April 2025</span>
+
+        <span class="highlight">Time:</span>
+        <span class="event-text">10:00 AM</span>
+
+        <span class="highlight">Venue:</span>
+        <span class="event-text">
+            Jabatan Siyasah Syariah,<br>
+            Universiti Malaya
+        </span>
     </div>
+</div>
+
 
     <!-- JavaScript for Falling Stars -->
     <script>
