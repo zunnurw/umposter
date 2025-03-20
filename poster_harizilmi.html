@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid Mubarak Celebration</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: url('eid.jpg') no-repeat center center;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @font-face {
+            font-family: 'BerkahRaya';
+            src: url('BerkahRaya-Demo-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        h1 {
+            font-family: 'BerkahRaya', cursive;
+            font-size: 60px;
+            margin-bottom: 10px;
+            color: #ffd700;
+            animation: glow 2s infinite alternate, bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .container {
+            opacity: 0;
+            animation: fadeIn 5s ease-out forwards, fadeOut 3s ease-in forwards 5s, fadeIn 2s ease-out forwards 9s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+
+        /* Ramadan Light Image */
+        .ramadan-light {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            opacity: 0;
+            animation: brighten 5s forwards, shine 2s infinite alternate 5s;
+        }
+
+        @keyframes brighten {
+            0% { opacity: 0; filter: brightness(0.5); }
+            100% { opacity: 1; filter: brightness(1.5); }
+        }
+
+        @keyframes shine {
+            0% { filter: drop-shadow(0 0 10px #ffd700); }
+            100% { filter: drop-shadow(0 0 20px #fff); }
+        }
+
+        /* Crescent Moon */
+        .crescent-moon {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 70% 30%, transparent 40%, #fff 50%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff, 0 0 20px #ffd700;
+            animation: moonFall 3s ease-in-out forwards;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .crescent-moon::after {
+            content: "★";
+            font-size: 25px;
+            color: #fff;
+            position: absolute;
+            right: 12px;
+            top: 30px;
+            text-shadow: 0 0 10px #fff, 0 0 20px #ffd700;
+        }
+
+        @keyframes moonFall {
+            0% { top: 10%; right: 10%; transform: scale(1); }
+            50% { top: 50%; right: 50%; transform: scale(1.2); }
+            100% { top: 85%; right: 50%; transform: translateX(50%) scale(1); }
+        }
+
+        /* Falling Stars */
+        .star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 5px white;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            from { transform: translateY(-100vh); opacity: 0.8; }
+            to { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* Audio Control Button */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+        }
+
+        .audio-control:hover {
+            background-color: rgba(75, 70, 42, 0.9);
+        }
+
+        .audio-control img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Ramadan Light Image -->
+    <img src="ramadanlight.webp" alt="Ramadan Light" class="ramadan-light">
+
+    <!-- Crescent Moon -->
+    <div class="crescent-moon"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Eid Mubarak</h1>
+        <h2>EID AL-FITR CELEBRATION</h2>
+        <p><span class="highlight">Date:</span> 18 April 2025</p>
+        <p><span class="highlight">Time:</span> 10:00 AM</p>
+        <p><span class="highlight">Venue:</span> Jabatan Siyasah Syariah, <br>Universiti Malaya</p>
+    </div>
+
+    <!-- JavaScript for Falling Stars -->
+    <script>
+        function createStar() {
+            const star = document.createElement("div");
+            star.classList.add("star");
+            star.style.left = Math.random() * 100 + "vw";
+            star.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.body.appendChild(star);
+
+            setTimeout(() => {
+                star.remove();
+            }, 5000);
+        }
+
+        setInterval(createStar, 300);
+    </script>
+
+    <!-- Audio Element (Autoplay Enabled) -->
+    <audio id="eidAudio" autoplay loop preload="auto">
+        <source src="Marhaban ya Ramadan.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Play/Pause Button -->
+    <div class="audio-control" id="audioButton">
+        <img id="playPauseIcon" src="https://img.icons8.com/ios-filled/50/ffffff/play.png" alt="Play">
+    </div>
+
+    <!-- JavaScript for Audio -->
+    <script>
+        let audio = document.getElementById("eidAudio");
+        let playPauseIcon = document.getElementById("playPauseIcon");
+        let audioButton = document.getElementById("audioButton");
+
+        audioButton.addEventListener("click", function () {
+            if (audio.paused) {
+                audio.play();
+                playPauseIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/pause.png";
+            } else {
+                audio.pause();
+                playPauseIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/play.png";
+            }
+        });
+    </script>
+
+</body>
+</html>
